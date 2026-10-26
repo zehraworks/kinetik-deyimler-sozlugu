@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kinetik Deyimler Sözlüğü – prototip</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #ECEFF3;
+  --stage: #F8F9FB;
+  --ink: #171A21;
+  --muted: #5B6170;
+  --accent: #2F44D9;
+  --rule: #C6CBD6;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121419;
+    --stage: #1B1E25;
+    --ink: #E6E8EC;
+    --muted: #9AA0AC;
+    --accent: #93A0FF;
+    --rule: #363B46;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121419;
+  --stage: #1B1E25;
+  --ink: #E6E8EC;
+  --muted: #9AA0AC;
+  --accent: #93A0FF;
+  --rule: #363B46;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 4.5rem) clamp(1.1rem, 4vw, 2.5rem) 3rem;
+}
+header h1 {
+  font-family: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.25rem;
+  max-width: 12ch;
+}
+header p {
+  max-width: 56ch;
+  margin: 0 0 0.5rem;
+}
+header .note {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.entry {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: start;
+  border-top: 1px solid var(--rule);
+  padding: clamp(1.75rem, 4vw, 2.75rem) 0;
+}
+.entry:first-of-type { margin-top: clamp(2rem, 5vw, 3.5rem); }
+.stage {
+  background: var(--stage);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+  line-height: 0;
+}
+.stage canvas { display: block; width: 100% !important; height: auto !important; }
+.entry h2 {
+  font-family: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 1rem;
+}
+dl { margin: 0 0 1.25rem; }
+dt {
+  color: var(--muted);
+  font-family: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+}
+dd { margin: 0.1rem 0 0; max-width: 42ch; }
+button {
+  font-family: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+}
+button:hover { background: var(--ink); color: var(--paper); }
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+footer {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.25rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+@media (max-width: 760px) {
+  .entry { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <header>
+    <h1>Kinetik Deyimler Sözlüğü</h1>
+    <p>Türkçe deyimlerin mecaz anlamını harflerin hareketiyle anlatan bir sözlük denemesi. Her madde, deyimin içindeki imgeyi kelimenin kendisine yaptırıyor.</p>
+    <p class="note">TÜBİTAK 2209-A başvurusu için ön çalışma: ilk üç madde.</p>
+  </header>
+
+  <article class="entry">
+    <div class="stage" id="s-smile" role="img" aria-label="“ağzı kulaklarına varmak” yazısı gülümser gibi kıvrılıp iki yana açılıyor"></div>
+    <div>
+      <h2>ağzı kulaklarına varmak</h2>
+      <dl>
+        <dt>Anlamı</dt>
+        <dd>Çok sevinmek; sevinci yüzünden okunmak.</dd>
+        <dt>Mecaz türü</dt>
+        <dd>Beden</dd>
+        <dt>Hareket</dt>
+        <dd>Satır bir gülümseme eğrisine oturur, kelimeler kulaklara doğru açılır.</dd>
+      </dl>
+      <button type="button" data-replay="s-smile">Baştan oynat</button>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="stage" id="s-sink" role="img" aria-label="“yerin dibine girmek” yazısının harfleri tek tek zeminin altına batıyor"></div>
+    <div>
+      <h2>yerin dibine girmek</h2>
+      <dl>
+        <dt>Anlamı</dt>
+        <dd>Çok utanmak; görünmez olmak istemek.</dd>
+        <dt>Mecaz türü</dt>
+        <dd>Yön (aşağı)</dd>
+        <dt>Hareket</dt>
+        <dd>Harfler sırayla zeminin altına batar; en son “dibine” kaybolur.</dd>
+      </dl>
+      <button type="button" data-replay="s-sink">Baştan oynat</button>
+    </div>
+  </article>
+
+  <article class="entry">
+    <div class="stage" id="s-scatter" role="img" aria-label="“aklı başından gitmek” yazısında “aklı” sözcüğü parçalara ayrılıp savruluyor"></div>
+    <div>
+      <h2>aklı başından gitmek</h2>
+      <dl>
+        <dt>Anlamı</dt>
+        <dd>Çok şaşırmak; heyecandan ya da korkudan ne yapacağını bilememek.</dd>
+        <dt>Mecaz türü</dt>
+        <dd>Dağılma ve düzen</dd>
+        <dt>Hareket</dt>
+        <dd>“aklı” sözcüğü parçalara ayrılıp savrulur, sonra yerine toplanır.</dd>
+      </dl>
+      <button type="button" data-replay="s-scatter">Baştan oynat</button>
+    </div>
+  </article>
+
+  <footer>Prototip, Ekim 2026. p5.js ile tarayıcıda çiziliyor; hareket hassasiyeti ayarı açıksa animasyonlar yalnızca düğmeyle oynar.</footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+<script>
+const FONT = '"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif';
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+function colors() {
+  return { bg: cssVar('--stage'), ink: cssVar('--ink'), acc: cssVar('--accent'), line: cssVar('--rule') };
+}
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const easeInOut = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const easeIn = t => t * t * t;
+
+// Bir döngü: giriş, bekleme, çıkış, dinlenme
+function cycle(ms, tm) {
+  const total = tm.inn + tm.hold + tm.out + tm.rest;
+  const done = ms >= total;
+  const m = ms % total;
+  let v;
+  if (m < tm.inn) v = easeInOut(m / tm.inn);
+  else if (m < tm.inn + tm.hold) v = 1;
+  else if (m < tm.inn + tm.hold + tm.out) v = 1 - easeInOut((m - tm.inn - tm.hold) / tm.out);
+  else v = 0;
+  return { v, done };
+}
+
+// Metni harflerine böler, her harfin merkez konumunu ve kelime sırasını tutar
+function layoutLetters(ctx, text, fs) {
+  ctx.font = `700 ${fs}px ${FONT}`;
+  let x = 0, word = 0;
+  const letters = [];
+  for (const ch of Array.from(text)) {
+    const w = ctx.measureText(ch).width;
+    letters.push({ ch, x: x + w / 2, w, word, space: ch === ' ' });
+    if (ch === ' ') word++;
+    x += w;
+  }
+  return { letters, total: x };
+}
+function fitFont(ctx, text, maxW, maxH, spread = 1) {
+  ctx.font = `700 100px ${FONT}`;
+  const tw = ctx.measureText(text).width * spread;
+  return Math.max(14, Math.min(maxH, (maxW * 100) / tw));
+}
+
+function mount(el, def) {
+  return new p5(p => {
+    let w, h, start = 0, playing = !reduce;
+    const st = {};
+    const ratioFor = width => (width < 520 ? 0.7 : 0.5);
+
+    p.setup = () => {
+      p.pixelDensity(Math.min(2, window.devicePixelRatio || 1));
+      w = Math.max(200, el.clientWidth);
+      h = Math.round(w * ratioFor(w));
+      p.createCanvas(w, h);
+      def.layout(p, st, w, h);
+      start = p.millis();
+      if (!playing) p.noLoop();
+    };
+
+    p.draw = () => {
+      const c = colors();
+      p.background(c.bg);
+      let v = def.staticV;
+      if (playing) {
+        const r = cycle(p.millis() - start, def.timing);
+        v = r.v;
+        if (reduce && r.done) { playing = false; p.noLoop(); v = def.staticV; }
+      }
+      def.render(p, st, v, c, w, h);
+    };
+
+    el._replay = () => { start = p.millis(); playing = true; p.loop(); };
+    el._resize = () => {
+      const nw = Math.max(200, el.clientWidth);
+      if (nw === w) return;
+      w = nw; h = Math.round(w * ratioFor(w));
+      p.resizeCanvas(w, h);
+      def.layout(p, st, w, h);
+      p.redraw();
+    };
+    el._relayout = () => { def.layout(p, st, w, h); p.redraw(); };
+    el._redraw = () => p.redraw();
+  }, el);
+}
+
+/* 1. ağzı kulaklarına varmak: satır gülümseme eğrisine oturur */
+const smile = {
+  timing: { inn: 1600, hold: 1400, out: 900, rest: 700 },
+  staticV: 1,
+  layout(p, st, w, h) {
+    const ctx = p.drawingContext;
+    const text = 'ağzı kulaklarına varmak';
+    st.fs = fitFont(ctx, text, w * 0.86, h * 0.24, 1.32);
+    Object.assign(st, layoutLetters(ctx, text, st.fs));
+  },
+  render(p, st, v, c, w, h) {
+    const ctx = p.drawingContext;
+    ctx.font = `700 ${st.fs}px ${FONT}`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const half = (st.total * 1.32) / 2;
+    const depth = h * 0.3;
+    const baseY = h * 0.42;
+    for (const L of st.letters) {
+      if (L.space) continue;
+      const x = (L.x - st.total / 2) * (1 + 0.32 * v);
+      const r = x / half;
+      const y = -depth * v * r * r + depth * v * 0.5;
+      const slope = (-2 * depth * v * x) / (half * half);
+      ctx.save();
+      ctx.translate(w / 2 + x, baseY + y);
+      ctx.rotate(Math.atan(slope));
+      if (L.word === 0) { ctx.scale(1 + 0.25 * v, 1); ctx.fillStyle = c.acc; }
+      else ctx.fillStyle = c.ink;
+      ctx.fillText(L.ch, 0, 0);
+      ctx.restore();
+    }
+  }
+};
+
+/* 2. yerin dibine girmek: harfler zeminin altına batar */
+const sink = {
+  timing: { inn: 2600, hold: 900, out: 1300, rest: 600 },
+  staticV: 0.45,
+  layout(p, st, w, h) {
+    const ctx = p.drawingContext;
+    const text = 'yerin dibine girmek';
+    st.fs = fitFont(ctx, text, w * 0.84, h * 0.26);
+    Object.assign(st, layoutLetters(ctx, text, st.fs));
+    // “dibine” en son batsın
+    const solid = st.letters.filter(L => !L.space);
+    const first = solid.filter(L => L.word !== 1);
+    const last = solid.filter(L => L.word === 1);
+    [...first, ...last].forEach((L, i) => { L.order = i; });
+    st.n = solid.length;
+  },
+  render(p, st, v, c, w, h) {
+    const ctx = p.drawingContext;
+    const stag = 0.18;
+    const span = 1 + (st.n - 1) * stag;
+    const baseline = h * 0.55;
+    const ground = baseline + st.fs * 0.3;
+    ctx.font = `700 ${st.fs}px ${FONT}`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    for (const L of st.letters) {
+      if (L.space) continue;
+      const lp = clamp(v * span - L.order * stag);
+      const dy = easeIn(lp) * st.fs * 1.45;
+      const rot = lp > 0 && lp < 1 ? Math.sin(lp * Math.PI * 4) * 0.1 * (1 - lp) : 0;
+      ctx.save();
+      ctx.translate(w / 2 - st.total / 2 + L.x, baseline + dy);
+      ctx.rotate(rot);
+      ctx.fillStyle = L.word === 1 ? c.acc : c.ink;
+      ctx.fillText(L.ch, 0, 0);
+      ctx.restore();
+    }
+    // zemin: altını örter
+    ctx.fillStyle = c.bg;
+    ctx.fillRect(0, ground, w, h - ground);
+    ctx.strokeStyle = c.line;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.06, ground);
+    ctx.lineTo(w * 0.94, ground);
+    ctx.stroke();
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = w * 0.06 + 10; x < w * 0.94; x += 14) {
+      ctx.moveTo(x, ground + 5);
+      ctx.lineTo(x - 8, ground + 13);
+    }
+    ctx.stroke();
+  }
+};
+
+/* 3. aklı başından gitmek: “aklı” parçacıklara ayrılıp savrulur */
+const scatter = {
+  timing: { inn: 1800, hold: 1200, out: 1600, rest: 800 },
+  staticV: 0.55,
+  layout(p, st, w, h) {
+    const ctx = p.drawingContext;
+    const full = 'aklı başından gitmek';
+    st.fs = fitFont(ctx, full, w * 0.84, h * 0.26);
+    ctx.font = `700 ${st.fs}px ${FONT}`;
+    const wA = ctx.measureText('aklı').width;
+    const wSp = ctx.measureText(' ').width;
+    const total = ctx.measureText(full).width;
+    st.x0 = (w - total) / 2;
+    st.restX = st.x0 + wA + wSp;
+    st.baseY = h * 0.58;
+
+    // “aklı” sözcüğünü ekran dışı bir tuvale çizip piksellerinden parçacık üret
+    const pg = p.createGraphics(w, h);
+    pg.pixelDensity(1);
+    const g = pg.drawingContext;
+    g.font = `700 ${st.fs}px ${FONT}`;
+    g.textBaseline = 'alphabetic';
+    g.fillStyle = '#ffffff';
+    g.fillText('aklı', st.x0, st.baseY);
+    pg.loadPixels();
+    const gap = Math.max(2, Math.round(st.fs / 16));
+    st.gap = gap;
+    st.parts = [];
+    for (let y = 0; y < h; y += gap) {
+      for (let x = 0; x < w; x += gap) {
+        if (pg.pixels[4 * (y * w + x) + 3] > 128) {
+          st.parts.push({
+            x, y,
+            ang: -Math.PI / 2 + p.random(-1.2, 1.2),
+            dist: p.random(0.12, 0.5) * Math.max(w, h),
+            d: p.random(),
+            nz: p.random(1000)
+          });
+        }
+      }
+    }
+    pg.remove();
+  },
+  render(p, st, v, c, w, h) {
+    const ctx = p.drawingContext;
+    ctx.font = `700 ${st.fs}px ${FONT}`;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = c.ink;
+    ctx.fillText('başından gitmek', st.restX, st.baseY);
+
+    const t = p.millis() * 0.0006;
+    p.noStroke();
+    p.fill(c.acc);
+    for (const pt of st.parts) {
+      const e = easeInOut(clamp(v * 1.5 - pt.d * 0.5));
+      const nx = (p.noise(pt.nz, t) - 0.5) * st.fs * 1.2 * e;
+      const ny = (p.noise(pt.nz + 50, t) - 0.5) * st.fs * 1.2 * e;
+      const px = pt.x + Math.cos(pt.ang) * pt.dist * e + nx;
+      const py = pt.y + Math.sin(pt.ang) * pt.dist * e + ny;
+      const s = st.gap * (1 - 0.35 * e) + 0.4;
+      p.rect(px, py, s, s);
+    }
+  }
+};
+
+const stages = [
+  [document.getElementById('s-smile'), smile],
+  [document.getElementById('s-sink'), sink],
+  [document.getElementById('s-scatter'), scatter]
+];
+stages.forEach(([el, def]) => mount(el, def));
+
+document.querySelectorAll('[data-replay]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const el = document.getElementById(btn.dataset.replay);
+    if (el && el._replay) el._replay();
+  });
+});
+
+// Font yüklenince harf ölçülerini yeniden hesapla
+document.fonts.load(`700 48px "Bricolage Grotesque"`).then(() => {
+  stages.forEach(([el]) => el._relayout && el._relayout());
+}).catch(() => {});
+
+// Boyut değişince tuvali yeniden boyutlandır
+let rt;
+const ro = new ResizeObserver(() => {
+  clearTimeout(rt);
+  rt = setTimeout(() => stages.forEach(([el]) => el._resize && el._resize()), 120);
+});
+stages.forEach(([el]) => ro.observe(el));
+
+// Tema değişince durağan çizimleri tazele
+new MutationObserver(() => stages.forEach(([el]) => el._redraw && el._redraw()))
+  .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () =>
+  stages.forEach(([el]) => el._redraw && el._redraw()));
+</script>
+</body>
+</html>
