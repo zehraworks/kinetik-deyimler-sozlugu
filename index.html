@@ -80,7 +80,7 @@ header .note {
   border-top: 1px solid var(--rule);
   padding: clamp(1.75rem, 4vw, 2.75rem) 0;
 }
-.entry:first-of-type { margin-top: clamp(2rem, 5vw, 3.5rem); }
+#sozluk .entry:first-child { margin-top: clamp(2rem, 5vw, 3.5rem); }
 .stage {
   background: var(--stage);
   border: 1px solid var(--rule);
@@ -89,7 +89,7 @@ header .note {
   line-height: 0;
 }
 .stage canvas { display: block; width: 100% !important; height: auto !important; }
-.entry h2 {
+.entry h2, .engine h2 {
   font-family: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
   font-weight: 700;
   font-size: clamp(1.5rem, 2.6vw, 2rem);
@@ -117,7 +117,30 @@ button {
   cursor: pointer;
 }
 button:hover { background: var(--ink); color: var(--paper); }
-button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+button:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+details { margin-top: 1rem; }
+summary {
+  font-family: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+pre {
+  margin: 0.5rem 0 0;
+  padding: 0.75rem 0.9rem;
+  background: var(--stage);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+.engine {
+  border-top: 1px solid var(--rule);
+  padding: clamp(1.75rem, 4vw, 2.75rem) 0 1rem;
+}
+.engine > p { max-width: 62ch; margin: 0 0 1rem; }
+.engine .entry { border-top: 0; padding-top: 0.5rem; }
 footer {
   border-top: 1px solid var(--rule);
   padding-top: 1.25rem;
@@ -134,56 +157,17 @@ footer {
   <header>
     <h1>Kinetik Deyimler Sözlüğü</h1>
     <p>Türkçe deyimlerin mecaz anlamını harflerin hareketiyle anlatan bir sözlük denemesi. Her madde, deyimin içindeki imgeyi kelimenin kendisine yaptırıyor.</p>
-    <p class="note">TÜBİTAK 2209-A başvurusu için ön çalışma: ilk üç madde.</p>
+    <p class="note">TÜBİTAK 2209-A başvurusu için ön çalışma: ilk beş madde.</p>
   </header>
 
-  <article class="entry">
-    <div class="stage" id="s-smile" role="img" aria-label="“ağzı kulaklarına varmak” yazısı gülümser gibi kıvrılıp iki yana açılıyor"></div>
-    <div>
-      <h2>ağzı kulaklarına varmak</h2>
-      <dl>
-        <dt>Anlamı</dt>
-        <dd>Çok sevinmek; sevinci yüzünden okunmak.</dd>
-        <dt>Mecaz türü</dt>
-        <dd>Beden</dd>
-        <dt>Hareket</dt>
-        <dd>Satır bir gülümseme eğrisine oturur, kelimeler kulaklara doğru açılır.</dd>
-      </dl>
-      <button type="button" data-replay="s-smile">Baştan oynat</button>
-    </div>
-  </article>
+  <div id="sozluk"></div>
 
-  <article class="entry">
-    <div class="stage" id="s-sink" role="img" aria-label="“yerin dibine girmek” yazısının harfleri tek tek zeminin altına batıyor"></div>
-    <div>
-      <h2>yerin dibine girmek</h2>
-      <dl>
-        <dt>Anlamı</dt>
-        <dd>Çok utanmak; görünmez olmak istemek.</dd>
-        <dt>Mecaz türü</dt>
-        <dd>Yön (aşağı)</dd>
-        <dt>Hareket</dt>
-        <dd>Harfler sırayla zeminin altına batar; en son “dibine” kaybolur.</dd>
-      </dl>
-      <button type="button" data-replay="s-sink">Baştan oynat</button>
-    </div>
-  </article>
-
-  <article class="entry">
-    <div class="stage" id="s-scatter" role="img" aria-label="“aklı başından gitmek” yazısında “aklı” sözcüğü parçalara ayrılıp savruluyor"></div>
-    <div>
-      <h2>aklı başından gitmek</h2>
-      <dl>
-        <dt>Anlamı</dt>
-        <dd>Çok şaşırmak; heyecandan ya da korkudan ne yapacağını bilememek.</dd>
-        <dt>Mecaz türü</dt>
-        <dd>Dağılma ve düzen</dd>
-        <dt>Hareket</dt>
-        <dd>“aklı” sözcüğü parçalara ayrılıp savrulur, sonra yerine toplanır.</dd>
-      </dl>
-      <button type="button" data-replay="s-scatter">Baştan oynat</button>
-    </div>
-  </article>
+  <section class="engine" aria-labelledby="motor-baslik">
+    <h2 id="motor-baslik">Motor nasıl çalışıyor?</h2>
+    <p>Maddeler tek tek kodlanmıyor. Motorun birkaç hareket türü (“fırça”) var: eğri, batma, dağılma, taşma, kırpma. Her deyim bu fırçalardan birini hangi ayarlarla kullanacağını söyleyen kısa bir tariften ibaret. Her maddenin altındaki “Tarif” bölümü bu veriyi gösteriyor.</p>
+    <p>Aşağıdaki madde için yeni kod yazılmadı: “yerin dibine girmek”teki batma fırçasının yönü yukarı, hedefi tek bir sözcük yapıldı.</p>
+    <div id="motor-ornek"></div>
+  </section>
 
   <footer>Prototip, Ekim 2026. p5.js ile tarayıcıda çiziliyor; hareket hassasiyeti ayarı açıksa animasyonlar yalnızca düğmeyle oynar.</footer>
 </main>
@@ -193,6 +177,107 @@ footer {
 const FONT = '"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif';
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/* ------------------------------------------------------------------
+   Sözlük verisi: her madde bir tarif. Motor yalnızca bu veriyi okur.
+   ------------------------------------------------------------------ */
+const SOZLUK = [
+  {
+    id: 'agzi',
+    deyim: 'ağzı kulaklarına varmak',
+    anlam: 'Çok sevinmek; sevinci yüzünden okunmak.',
+    kategori: 'Beden',
+    hareket: 'Satır bir gülümseme eğrisine oturur, kelimeler kulaklara doğru açılır.',
+    aria: '“ağzı kulaklarına varmak” yazısı gülümser gibi kıvrılıp iki yana açılıyor',
+    tarif: {
+      firca: 'egri',
+      vurgu: 0,
+      ayarlar: { derinlik: 0.3, acilma: 0.32, vurguGenislik: 0.25 },
+      zamanlama: { giris: 1600, bekleme: 1400, cikis: 900, dinlenme: 700 },
+      durgun: 1
+    }
+  },
+  {
+    id: 'dibine',
+    deyim: 'yerin dibine girmek',
+    anlam: 'Çok utanmak; görünmez olmak istemek.',
+    kategori: 'Yön (aşağı)',
+    hareket: 'Harfler sırayla zeminin altına batar; en son “dibine” kaybolur.',
+    aria: '“yerin dibine girmek” yazısının harfleri tek tek zeminin altına batıyor',
+    tarif: {
+      firca: 'batma',
+      vurgu: 1,
+      ayarlar: { yon: 1, mesafe: 1.45, kademe: 0.18, hedef: null, sonKalan: 1, egim: 0, zemin: true, hizEgrisi: 'hizlanan' },
+      zamanlama: { giris: 2600, bekleme: 900, cikis: 1300, dinlenme: 600 },
+      durgun: 0.45
+    }
+  },
+  {
+    id: 'akli',
+    deyim: 'aklı başından gitmek',
+    anlam: 'Çok şaşırmak; heyecandan ya da korkudan ne yapacağını bilememek.',
+    kategori: 'Dağılma ve düzen',
+    hareket: '“aklı” sözcüğü parçalara ayrılıp savrulur, sonra yerine toplanır.',
+    aria: '“aklı başından gitmek” yazısında “aklı” sözcüğü parçalara ayrılıp savruluyor',
+    tarif: {
+      firca: 'dagilma',
+      vurgu: 0,
+      ayarlar: { hedef: 0, yayilma: 0.5, gurultu: 1.2, aci: -90, sapma: 70 },
+      zamanlama: { giris: 1800, bekleme: 1200, cikis: 1600, dinlenme: 800 },
+      durgun: 0.55
+    }
+  },
+  {
+    id: 'ici',
+    deyim: 'içi içine sığmamak',
+    anlam: 'Sevinç, heyecan ya da sabırsızlıktan yerinde duramamak.',
+    kategori: 'Kap (iç/dış)',
+    hareket: 'Sözcükler çerçevenin içinde büyür, duvarlara sıkışır, sonunda çerçeveyi zorlayıp taşar.',
+    aria: '“içi içine sığmamak” yazısı bir çerçevenin içinde büyüyüp sıkışıyor ve çerçeveden taşıyor',
+    tarif: {
+      firca: 'tasma',
+      vurgu: 1,
+      ayarlar: { buyume: 1.6, esik: 0.6, yayilma: 0.22, titreme: 0.12 },
+      zamanlama: { giris: 2400, bekleme: 1300, cikis: 1200, dinlenme: 700 },
+      durgun: 0.62
+    }
+  },
+  {
+    id: 'goz',
+    deyim: 'göz açıp kapayıncaya kadar',
+    anlam: 'Çok kısa bir sürede, bir anda.',
+    kategori: 'Hız ve zaman',
+    hareket: '“ö” harfinin noktaları göz olur. Göz kırpıldığı anda deyimin geri kalanı birden belirir. Türkçe harf: noktalar harften ayrı hareket eder.',
+    aria: '“göz açıp kapayıncaya kadar” yazısında ö harfinin noktaları göz gibi kırpılıyor, kırpma anında deyimin geri kalanı beliriyor',
+    tarif: {
+      firca: 'kirpma',
+      vurgu: 0,
+      ayarlar: { hedef: 0, harf: 'ö', esik: 0.35, kirpmaSuresi: 180, aralik: 1700 },
+      zamanlama: { giris: 1500, bekleme: 2600, cikis: 900, dinlenme: 500 },
+      durgun: 1
+    }
+  }
+];
+
+// Motoru anlatan örnek: yeni kod yok, yalnızca batma fırçasının başka bir tarifi
+const MOTOR_ORNEK = {
+  id: 'burnu',
+  deyim: 'burnu havada',
+  anlam: 'Kendini beğenmiş, kibirli.',
+  kategori: 'Yön (yukarı)',
+  hareket: '“burnu” sözcüğü havaya kalkar ve hafifçe yukarı döner.',
+  aria: '“burnu havada” yazısında “burnu” sözcüğü yukarı kalkıp eğiliyor',
+  tarif: {
+    firca: 'batma',
+    vurgu: 0,
+    ayarlar: { yon: -1, mesafe: 0.9, kademe: 0.08, hedef: 0, sonKalan: null, egim: -0.14, zemin: false, hizEgrisi: 'yumusak' },
+    zamanlama: { giris: 1400, bekleme: 1400, cikis: 1000, dinlenme: 600 },
+    durgun: 1
+  }
+};
+
+/* ------------------------------------------------------------------
+   Yardımcılar
+   ------------------------------------------------------------------ */
 function cssVar(name) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
@@ -202,16 +287,17 @@ function colors() {
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const easeInOut = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 const easeIn = t => t * t * t;
+const EGRILER = { hizlanan: easeIn, yumusak: easeInOut };
 
 // Bir döngü: giriş, bekleme, çıkış, dinlenme
-function cycle(ms, tm) {
-  const total = tm.inn + tm.hold + tm.out + tm.rest;
+function cycle(ms, z) {
+  const total = z.giris + z.bekleme + z.cikis + z.dinlenme;
   const done = ms >= total;
   const m = ms % total;
   let v;
-  if (m < tm.inn) v = easeInOut(m / tm.inn);
-  else if (m < tm.inn + tm.hold) v = 1;
-  else if (m < tm.inn + tm.hold + tm.out) v = 1 - easeInOut((m - tm.inn - tm.hold) / tm.out);
+  if (m < z.giris) v = easeInOut(m / z.giris);
+  else if (m < z.giris + z.bekleme) v = 1;
+  else if (m < z.giris + z.bekleme + z.cikis) v = 1 - easeInOut((m - z.giris - z.bekleme) / z.cikis);
   else v = 0;
   return { v, done };
 }
@@ -234,8 +320,295 @@ function fitFont(ctx, text, maxW, maxH, spread = 1) {
   const tw = ctx.measureText(text).width * spread;
   return Math.max(14, Math.min(maxH, (maxW * 100) / tw));
 }
+function setFont(ctx, fs) {
+  ctx.font = `700 ${fs}px ${FONT}`;
+}
+const colorFor = (L, r, c) => (L.word === r.tarif.vurgu ? c.acc : c.ink);
 
-function mount(el, def) {
+/* ------------------------------------------------------------------
+   Fırçalar: her biri bir hareket türü. Ayarlarını tariften alır.
+   layout(p, st, w, h, r)          → ölçüleri hesaplar
+   render(p, st, v, c, w, h, r, t) → v: 0–1 ilerleme, t: geçen süre (ms)
+   ------------------------------------------------------------------ */
+const FIRCALAR = {
+
+  // Satırı bir eğriye oturtur ve iki yana açar (beden)
+  egri: {
+    layout(p, st, w, h, r) {
+      const ctx = p.drawingContext;
+      st.fs = fitFont(ctx, r.deyim, w * 0.86, h * 0.24, 1 + r.tarif.ayarlar.acilma);
+      Object.assign(st, layoutLetters(ctx, r.deyim, st.fs));
+    },
+    render(p, st, v, c, w, h, r) {
+      const a = r.tarif.ayarlar;
+      const ctx = p.drawingContext;
+      setFont(ctx, st.fs);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const half = (st.total * (1 + a.acilma)) / 2;
+      const depth = h * a.derinlik;
+      const baseY = h * 0.42;
+      for (const L of st.letters) {
+        if (L.space) continue;
+        const x = (L.x - st.total / 2) * (1 + a.acilma * v);
+        const k = x / half;
+        const y = -depth * v * k * k + depth * v * 0.5;
+        const slope = (-2 * depth * v * x) / (half * half);
+        ctx.save();
+        ctx.translate(w / 2 + x, baseY + y);
+        ctx.rotate(Math.atan(slope));
+        if (L.word === r.tarif.vurgu) ctx.scale(1 + a.vurguGenislik * v, 1);
+        ctx.fillStyle = colorFor(L, r, c);
+        ctx.fillText(L.ch, 0, 0);
+        ctx.restore();
+      }
+    }
+  },
+
+  // Harfleri sırayla aşağı batırır ya da yukarı kaldırır (yön)
+  batma: {
+    layout(p, st, w, h, r) {
+      const a = r.tarif.ayarlar;
+      const ctx = p.drawingContext;
+      st.fs = fitFont(ctx, r.deyim, w * 0.84, h * 0.26);
+      Object.assign(st, layoutLetters(ctx, r.deyim, st.fs));
+      const solid = st.letters.filter(L => !L.space);
+      const moving = solid.filter(L => a.hedef === null || L.word === a.hedef);
+      // sonKalan sözcüğü en son hareket eder
+      const first = moving.filter(L => L.word !== a.sonKalan);
+      const last = moving.filter(L => L.word === a.sonKalan);
+      solid.forEach(L => { L.order = -1; });
+      [...first, ...last].forEach((L, i) => { L.order = i; });
+      st.n = moving.length;
+    },
+    render(p, st, v, c, w, h, r) {
+      const a = r.tarif.ayarlar;
+      const ctx = p.drawingContext;
+      const ease = EGRILER[a.hizEgrisi] || easeInOut;
+      const span = 1 + (st.n - 1) * a.kademe;
+      const baseline = a.zemin ? h * 0.55 : h * (a.yon > 0 ? 0.5 : 0.66);
+      const ground = baseline + st.fs * 0.3;
+      setFont(ctx, st.fs);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      for (const L of st.letters) {
+        if (L.space) continue;
+        let dy = 0, rot = 0;
+        if (L.order >= 0) {
+          const lp = clamp(v * span - L.order * a.kademe);
+          dy = a.yon * ease(lp) * st.fs * a.mesafe;
+          rot = (lp > 0 && lp < 1 ? Math.sin(lp * Math.PI * 4) * 0.1 * (1 - lp) : 0) + a.egim * ease(lp);
+        }
+        ctx.save();
+        ctx.translate(w / 2 - st.total / 2 + L.x, baseline + dy);
+        ctx.rotate(rot);
+        ctx.fillStyle = colorFor(L, r, c);
+        ctx.fillText(L.ch, 0, 0);
+        ctx.restore();
+      }
+      if (!a.zemin) return;
+      // zemin: altını örter
+      ctx.fillStyle = c.bg;
+      ctx.fillRect(0, ground, w, h - ground);
+      ctx.strokeStyle = c.line;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.06, ground);
+      ctx.lineTo(w * 0.94, ground);
+      ctx.stroke();
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let x = w * 0.06 + 10; x < w * 0.94; x += 14) {
+        ctx.moveTo(x, ground + 5);
+        ctx.lineTo(x - 8, ground + 13);
+      }
+      ctx.stroke();
+    }
+  },
+
+  // Hedef sözcüğü piksellerinden parçacıklara ayırıp savurur (dağılma)
+  dagilma: {
+    layout(p, st, w, h, r) {
+      const a = r.tarif.ayarlar;
+      const ctx = p.drawingContext;
+      st.fs = fitFont(ctx, r.deyim, w * 0.84, h * 0.26);
+      Object.assign(st, layoutLetters(ctx, r.deyim, st.fs));
+      st.x0 = (w - st.total) / 2;
+      st.baseY = h * 0.58;
+
+      // Hedef sözcüğü ekran dışı bir tuvale çizip piksellerinden parçacık üret
+      const pg = p.createGraphics(w, h);
+      pg.pixelDensity(1);
+      const g = pg.drawingContext;
+      setFont(g, st.fs);
+      g.textAlign = 'center';
+      g.textBaseline = 'alphabetic';
+      g.fillStyle = '#ffffff';
+      for (const L of st.letters) {
+        if (!L.space && L.word === a.hedef) g.fillText(L.ch, st.x0 + L.x, st.baseY);
+      }
+      pg.loadPixels();
+      const gap = Math.max(2, Math.round(st.fs / 16));
+      const aci = (a.aci * Math.PI) / 180;
+      const sapma = (a.sapma * Math.PI) / 180;
+      st.gap = gap;
+      st.parts = [];
+      for (let y = 0; y < h; y += gap) {
+        for (let x = 0; x < w; x += gap) {
+          if (pg.pixels[4 * (y * w + x) + 3] > 128) {
+            st.parts.push({
+              x, y,
+              ang: aci + p.random(-sapma, sapma),
+              dist: p.random(0.12, a.yayilma) * Math.max(w, h),
+              d: p.random(),
+              nz: p.random(1000)
+            });
+          }
+        }
+      }
+      pg.remove();
+    },
+    render(p, st, v, c, w, h, r) {
+      const a = r.tarif.ayarlar;
+      const ctx = p.drawingContext;
+      setFont(ctx, st.fs);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillStyle = c.ink;
+      for (const L of st.letters) {
+        if (!L.space && L.word !== a.hedef) ctx.fillText(L.ch, st.x0 + L.x, st.baseY);
+      }
+      const t = p.millis() * 0.0006;
+      p.noStroke();
+      p.fill(c.acc);
+      for (const pt of st.parts) {
+        const e = easeInOut(clamp(v * 1.5 - pt.d * 0.5));
+        const nx = (p.noise(pt.nz, t) - 0.5) * st.fs * a.gurultu * e;
+        const ny = (p.noise(pt.nz + 50, t) - 0.5) * st.fs * a.gurultu * e;
+        const px = pt.x + Math.cos(pt.ang) * pt.dist * e + nx;
+        const py = pt.y + Math.sin(pt.ang) * pt.dist * e + ny;
+        const s = st.gap * (1 - 0.35 * e) + 0.4;
+        p.rect(px, py, s, s);
+      }
+    }
+  },
+
+  // Metni bir çerçevenin içinde büyütür, sıkıştırır, sonra taşırır (kap)
+  tasma: {
+    layout(p, st, w, h, r) {
+      const ctx = p.drawingContext;
+      // taşma anında genişlik buyume × (1 + yayilma) katına çıkar; sahneye sığacak boyutta başla
+      const a = r.tarif.ayarlar;
+      st.fs = fitFont(ctx, r.deyim, (w * 0.8) / (a.buyume * (1 + a.yayilma)), h * 0.2);
+      Object.assign(st, layoutLetters(ctx, r.deyim, st.fs));
+      st.fw = st.total + st.fs * 0.6;
+      st.fh = st.fs * 1.3;
+    },
+    render(p, st, v, c, w, h, r) {
+      const a = r.tarif.ayarlar;
+      const ctx = p.drawingContext;
+      const cx = w / 2, cy = h * 0.52;
+      const grow = easeInOut(clamp(v / a.esik));             // çerçevenin içinde büyüme
+      const burst = easeInOut(clamp((v - a.esik) / (1 - a.esik))); // taşma
+      const sy = 1 + (a.buyume - 1) * (0.7 * grow + 0.3 * burst);
+      const room = (st.fw - st.fs * 0.35) / st.total;
+      const squeezed = Math.min(sy, room);                   // duvarlara sıkışma
+      const sx = squeezed + (sy - squeezed) * burst;
+      const spread = 1 + a.yayilma * burst;
+      const press = grow * (1 - burst);                      // duvarlara baskı
+
+      // çerçeve: içerden itildikçe kenarları dışa doğru bombeleşir
+      const l = cx - st.fw / 2, rt = cx + st.fw / 2;
+      const tp = cy - st.fh / 2, bt = cy + st.fh / 2;
+      const bx = st.fw * (0.025 * press + 0.07 * burst);
+      const by = st.fh * (0.12 * press + 0.3 * burst);
+      ctx.strokeStyle = c.ink;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(l, tp);
+      ctx.quadraticCurveTo(cx, tp - by, rt, tp);
+      ctx.quadraticCurveTo(rt + bx, cy, rt, bt);
+      ctx.quadraticCurveTo(cx, bt + by, l, bt);
+      ctx.quadraticCurveTo(l - bx, cy, l, tp);
+      ctx.stroke();
+
+      setFont(ctx, st.fs);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const time = p.millis() * 0.02;
+      for (const L of st.letters) {
+        if (L.space) continue;
+        const i = st.letters.indexOf(L);
+        const jitter = Math.sin(time + i * 1.7) * st.fs * a.titreme * (press * 0.4 + burst);
+        ctx.save();
+        ctx.translate(cx + (L.x - st.total / 2) * sx * spread, cy + jitter);
+        ctx.scale(sx, sy);
+        ctx.fillStyle = colorFor(L, r, c);
+        ctx.fillText(L.ch, 0, 0);
+        ctx.restore();
+      }
+    }
+  },
+
+  // Bir harfin noktalarını göz gibi kırpar; kırpma anında metnin geri kalanı belirir (hız, Türkçe harf)
+  kirpma: {
+    layout(p, st, w, h, r) {
+      const ctx = p.drawingContext;
+      st.fs = fitFont(ctx, r.deyim, w * 0.84, h * 0.24);
+      Object.assign(st, layoutLetters(ctx, r.deyim, st.fs));
+      setFont(ctx, st.fs);
+      st.xh = ctx.measureText('o').actualBoundingBoxAscent;
+      st.x0 = (w - st.total) / 2;
+      st.baseY = h * 0.6;
+      // hedef sözcük tek başınayken ortada dursun
+      const own = st.letters.filter(L => L.word === r.tarif.ayarlar.hedef && !L.space);
+      const mid = (own[0].x - own[0].w / 2 + own[own.length - 1].x + own[own.length - 1].w / 2) / 2;
+      st.soloShift = w / 2 - (st.x0 + mid);
+    },
+    render(p, st, v, c, w, h, r, t) {
+      const a = r.tarif.ayarlar;
+      const ctx = p.drawingContext;
+      const visible = v >= a.esik;
+      // geçişte bir kırpma; tam açıkken belli aralıklarla kendiliğinden kırpar
+      let close = clamp(1 - Math.abs(v - a.esik) / 0.08);
+      if (v > 0.98) {
+        const ph = t % a.aralik;
+        if (ph < a.kirpmaSuresi) close = Math.max(close, Math.sin((ph / a.kirpmaSuresi) * Math.PI));
+      }
+      const plain = { 'ö': 'o', 'ü': 'u' }[a.harf] || a.harf;
+      setFont(ctx, st.fs);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      for (const L of st.letters) {
+        if (L.space) continue;
+        if (L.word !== a.hedef && !visible) continue;
+        const x = st.x0 + L.x + (visible ? 0 : st.soloShift);
+        ctx.fillStyle = c.ink;
+        if (L.word === a.hedef && L.ch === a.harf) {
+          // harfin gövdesi ve noktaları ayrı çizilir
+          ctx.fillText(plain, x, st.baseY);
+          const rx = st.fs * 0.085;
+          const ry = Math.max(1, rx * (1 - close));
+          const ey = st.baseY - st.xh - st.fs * 0.17;
+          ctx.fillStyle = c.acc;
+          for (const dx of [-st.fs * 0.13, st.fs * 0.13]) {
+            ctx.beginPath();
+            ctx.ellipse(x + dx, ey, rx, ry, 0, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        } else {
+          ctx.fillText(L.ch, x, st.baseY);
+        }
+      }
+    }
+  }
+};
+
+/* ------------------------------------------------------------------
+   Motor: bir tarifi alıp sahneye bağlar
+   ------------------------------------------------------------------ */
+function mount(el, r) {
+  const brush = FIRCALAR[r.tarif.firca];
   return new p5(p => {
     let w, h, start = 0, playing = !reduce;
     const st = {};
@@ -246,7 +619,7 @@ function mount(el, def) {
       w = Math.max(200, el.clientWidth);
       h = Math.round(w * ratioFor(w));
       p.createCanvas(w, h);
-      def.layout(p, st, w, h);
+      brush.layout(p, st, w, h, r);
       start = p.millis();
       if (!playing) p.noLoop();
     };
@@ -254,13 +627,14 @@ function mount(el, def) {
     p.draw = () => {
       const c = colors();
       p.background(c.bg);
-      let v = def.staticV;
+      const t = p.millis() - start;
+      let v = r.tarif.durgun;
       if (playing) {
-        const r = cycle(p.millis() - start, def.timing);
-        v = r.v;
-        if (reduce && r.done) { playing = false; p.noLoop(); v = def.staticV; }
+        const cyc = cycle(t, r.tarif.zamanlama);
+        v = cyc.v;
+        if (reduce && cyc.done) { playing = false; p.noLoop(); v = r.tarif.durgun; }
       }
-      def.render(p, st, v, c, w, h);
+      brush.render(p, st, v, c, w, h, r, playing ? t : 0);
     };
 
     el._replay = () => { start = p.millis(); playing = true; p.loop(); };
@@ -269,184 +643,45 @@ function mount(el, def) {
       if (nw === w) return;
       w = nw; h = Math.round(w * ratioFor(w));
       p.resizeCanvas(w, h);
-      def.layout(p, st, w, h);
+      brush.layout(p, st, w, h, r);
       p.redraw();
     };
-    el._relayout = () => { def.layout(p, st, w, h); p.redraw(); };
+    el._relayout = () => { brush.layout(p, st, w, h, r); p.redraw(); };
     el._redraw = () => p.redraw();
   }, el);
 }
 
-/* 1. ağzı kulaklarına varmak: satır gülümseme eğrisine oturur */
-const smile = {
-  timing: { inn: 1600, hold: 1400, out: 900, rest: 700 },
-  staticV: 1,
-  layout(p, st, w, h) {
-    const ctx = p.drawingContext;
-    const text = 'ağzı kulaklarına varmak';
-    st.fs = fitFont(ctx, text, w * 0.86, h * 0.24, 1.32);
-    Object.assign(st, layoutLetters(ctx, text, st.fs));
-  },
-  render(p, st, v, c, w, h) {
-    const ctx = p.drawingContext;
-    ctx.font = `700 ${st.fs}px ${FONT}`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    const half = (st.total * 1.32) / 2;
-    const depth = h * 0.3;
-    const baseY = h * 0.42;
-    for (const L of st.letters) {
-      if (L.space) continue;
-      const x = (L.x - st.total / 2) * (1 + 0.32 * v);
-      const r = x / half;
-      const y = -depth * v * r * r + depth * v * 0.5;
-      const slope = (-2 * depth * v * x) / (half * half);
-      ctx.save();
-      ctx.translate(w / 2 + x, baseY + y);
-      ctx.rotate(Math.atan(slope));
-      if (L.word === 0) { ctx.scale(1 + 0.25 * v, 1); ctx.fillStyle = c.acc; }
-      else ctx.fillStyle = c.ink;
-      ctx.fillText(L.ch, 0, 0);
-      ctx.restore();
-    }
-  }
-};
+// Bir madde için sahneyi ve açıklamayı oluşturur
+function renderEntry(r, parent) {
+  const art = document.createElement('article');
+  art.className = 'entry';
+  art.innerHTML = `
+    <div class="stage" id="s-${r.id}" role="img"></div>
+    <div>
+      <h2></h2>
+      <dl>
+        <dt>Anlamı</dt><dd data-f="anlam"></dd>
+        <dt>Mecaz türü</dt><dd data-f="kategori"></dd>
+        <dt>Hareket</dt><dd data-f="hareket"></dd>
+      </dl>
+      <button type="button">Baştan oynat</button>
+      <details><summary>Tarif (veri)</summary><pre><code></code></pre></details>
+    </div>`;
+  const stage = art.querySelector('.stage');
+  stage.setAttribute('aria-label', r.aria);
+  art.querySelector('h2').textContent = r.deyim;
+  for (const dd of art.querySelectorAll('dd')) dd.textContent = r[dd.dataset.f];
+  art.querySelector('code').textContent = JSON.stringify(r.tarif, null, 2);
+  art.querySelector('button').addEventListener('click', () => stage._replay && stage._replay());
+  parent.appendChild(art);
+  return stage;
+}
 
-/* 2. yerin dibine girmek: harfler zeminin altına batar */
-const sink = {
-  timing: { inn: 2600, hold: 900, out: 1300, rest: 600 },
-  staticV: 0.45,
-  layout(p, st, w, h) {
-    const ctx = p.drawingContext;
-    const text = 'yerin dibine girmek';
-    st.fs = fitFont(ctx, text, w * 0.84, h * 0.26);
-    Object.assign(st, layoutLetters(ctx, text, st.fs));
-    // “dibine” en son batsın
-    const solid = st.letters.filter(L => !L.space);
-    const first = solid.filter(L => L.word !== 1);
-    const last = solid.filter(L => L.word === 1);
-    [...first, ...last].forEach((L, i) => { L.order = i; });
-    st.n = solid.length;
-  },
-  render(p, st, v, c, w, h) {
-    const ctx = p.drawingContext;
-    const stag = 0.18;
-    const span = 1 + (st.n - 1) * stag;
-    const baseline = h * 0.55;
-    const ground = baseline + st.fs * 0.3;
-    ctx.font = `700 ${st.fs}px ${FONT}`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'alphabetic';
-    for (const L of st.letters) {
-      if (L.space) continue;
-      const lp = clamp(v * span - L.order * stag);
-      const dy = easeIn(lp) * st.fs * 1.45;
-      const rot = lp > 0 && lp < 1 ? Math.sin(lp * Math.PI * 4) * 0.1 * (1 - lp) : 0;
-      ctx.save();
-      ctx.translate(w / 2 - st.total / 2 + L.x, baseline + dy);
-      ctx.rotate(rot);
-      ctx.fillStyle = L.word === 1 ? c.acc : c.ink;
-      ctx.fillText(L.ch, 0, 0);
-      ctx.restore();
-    }
-    // zemin: altını örter
-    ctx.fillStyle = c.bg;
-    ctx.fillRect(0, ground, w, h - ground);
-    ctx.strokeStyle = c.line;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(w * 0.06, ground);
-    ctx.lineTo(w * 0.94, ground);
-    ctx.stroke();
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    for (let x = w * 0.06 + 10; x < w * 0.94; x += 14) {
-      ctx.moveTo(x, ground + 5);
-      ctx.lineTo(x - 8, ground + 13);
-    }
-    ctx.stroke();
-  }
-};
-
-/* 3. aklı başından gitmek: “aklı” parçacıklara ayrılıp savrulur */
-const scatter = {
-  timing: { inn: 1800, hold: 1200, out: 1600, rest: 800 },
-  staticV: 0.55,
-  layout(p, st, w, h) {
-    const ctx = p.drawingContext;
-    const full = 'aklı başından gitmek';
-    st.fs = fitFont(ctx, full, w * 0.84, h * 0.26);
-    ctx.font = `700 ${st.fs}px ${FONT}`;
-    const wA = ctx.measureText('aklı').width;
-    const wSp = ctx.measureText(' ').width;
-    const total = ctx.measureText(full).width;
-    st.x0 = (w - total) / 2;
-    st.restX = st.x0 + wA + wSp;
-    st.baseY = h * 0.58;
-
-    // “aklı” sözcüğünü ekran dışı bir tuvale çizip piksellerinden parçacık üret
-    const pg = p.createGraphics(w, h);
-    pg.pixelDensity(1);
-    const g = pg.drawingContext;
-    g.font = `700 ${st.fs}px ${FONT}`;
-    g.textBaseline = 'alphabetic';
-    g.fillStyle = '#ffffff';
-    g.fillText('aklı', st.x0, st.baseY);
-    pg.loadPixels();
-    const gap = Math.max(2, Math.round(st.fs / 16));
-    st.gap = gap;
-    st.parts = [];
-    for (let y = 0; y < h; y += gap) {
-      for (let x = 0; x < w; x += gap) {
-        if (pg.pixels[4 * (y * w + x) + 3] > 128) {
-          st.parts.push({
-            x, y,
-            ang: -Math.PI / 2 + p.random(-1.2, 1.2),
-            dist: p.random(0.12, 0.5) * Math.max(w, h),
-            d: p.random(),
-            nz: p.random(1000)
-          });
-        }
-      }
-    }
-    pg.remove();
-  },
-  render(p, st, v, c, w, h) {
-    const ctx = p.drawingContext;
-    ctx.font = `700 ${st.fs}px ${FONT}`;
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillStyle = c.ink;
-    ctx.fillText('başından gitmek', st.restX, st.baseY);
-
-    const t = p.millis() * 0.0006;
-    p.noStroke();
-    p.fill(c.acc);
-    for (const pt of st.parts) {
-      const e = easeInOut(clamp(v * 1.5 - pt.d * 0.5));
-      const nx = (p.noise(pt.nz, t) - 0.5) * st.fs * 1.2 * e;
-      const ny = (p.noise(pt.nz + 50, t) - 0.5) * st.fs * 1.2 * e;
-      const px = pt.x + Math.cos(pt.ang) * pt.dist * e + nx;
-      const py = pt.y + Math.sin(pt.ang) * pt.dist * e + ny;
-      const s = st.gap * (1 - 0.35 * e) + 0.4;
-      p.rect(px, py, s, s);
-    }
-  }
-};
-
-const stages = [
-  [document.getElementById('s-smile'), smile],
-  [document.getElementById('s-sink'), sink],
-  [document.getElementById('s-scatter'), scatter]
-];
-stages.forEach(([el, def]) => mount(el, def));
-
-document.querySelectorAll('[data-replay]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const el = document.getElementById(btn.dataset.replay);
-    if (el && el._replay) el._replay();
-  });
-});
+const stages = [];
+const list = document.getElementById('sozluk');
+for (const r of SOZLUK) stages.push([renderEntry(r, list), r]);
+stages.push([renderEntry(MOTOR_ORNEK, document.getElementById('motor-ornek')), MOTOR_ORNEK]);
+stages.forEach(([el, r]) => mount(el, r));
 
 // Font yüklenince harf ölçülerini yeniden hesapla
 document.fonts.load(`700 48px "Bricolage Grotesque"`).then(() => {
