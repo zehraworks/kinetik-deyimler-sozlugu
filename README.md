@@ -28,8 +28,6 @@ Deyimler tek tek kodlanmıyor. Motorun birkaç hareket türü ("fırça") var. H
 }
 ```
 
-Sayfanın sonundaki "burnu havada" maddesi için yeni kod yazılmadı. Batma fırçasının yönü yukarı, hedefi de tek bir sözcük yapıldı.
-
 Türkçe harfler: "göz açıp kapayıncaya kadar" maddesinde "ö" harfinin noktaları harf gövdesinden ayrı çiziliyor ve ayrı hareket ediyor.
 
 Animasyonlar p5.js ile tarayıcıda çiziliyor. İşletim sisteminde hareket azaltma ayarı açıksa animasyonlar kendiliğinden oynamaz, yalnızca "Baştan oynat" düğmesiyle oynar.

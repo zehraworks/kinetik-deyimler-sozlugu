@@ -89,7 +89,7 @@ header .note {
   line-height: 0;
 }
 .stage canvas { display: block; width: 100% !important; height: auto !important; }
-.entry h2, .engine h2 {
+.entry h2 {
   font-family: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
   font-weight: 700;
   font-size: clamp(1.5rem, 2.6vw, 2rem);
@@ -135,12 +135,6 @@ pre {
   line-height: 1.5;
   overflow-x: auto;
 }
-.engine {
-  border-top: 1px solid var(--rule);
-  padding: clamp(1.75rem, 4vw, 2.75rem) 0 1rem;
-}
-.engine > p { max-width: 62ch; margin: 0 0 1rem; }
-.engine .entry { border-top: 0; padding-top: 0.5rem; }
 footer {
   border-top: 1px solid var(--rule);
   padding-top: 1.25rem;
@@ -161,13 +155,6 @@ footer {
   </header>
 
   <div id="sozluk"></div>
-
-  <section class="engine" aria-labelledby="motor-baslik">
-    <h2 id="motor-baslik">Motor nasıl çalışıyor?</h2>
-    <p>Maddeler tek tek kodlanmıyor. Motorun birkaç hareket türü (“fırça”) var: eğri, batma, dağılma, taşma, kırpma. Her deyim bu fırçalardan birini hangi ayarlarla kullanacağını söyleyen kısa bir tariften ibaret. Her maddenin altındaki “Tarif” bölümü bu veriyi gösteriyor.</p>
-    <p>Aşağıdaki madde için yeni kod yazılmadı: “yerin dibine girmek”teki batma fırçasının yönü yukarı, hedefi tek bir sözcük yapıldı.</p>
-    <div id="motor-ornek"></div>
-  </section>
 
   <footer>Prototip, Ekim 2026. p5.js ile tarayıcıda çiziliyor; hareket hassasiyeti ayarı açıksa animasyonlar yalnızca düğmeyle oynar.</footer>
 </main>
@@ -257,23 +244,6 @@ const SOZLUK = [
     }
   }
 ];
-
-// Motoru anlatan örnek: yeni kod yok, yalnızca batma fırçasının başka bir tarifi
-const MOTOR_ORNEK = {
-  id: 'burnu',
-  deyim: 'burnu havada',
-  anlam: 'Kendini beğenmiş, kibirli.',
-  kategori: 'Yön (yukarı)',
-  hareket: '“burnu” sözcüğü havaya kalkar ve hafifçe yukarı döner.',
-  aria: '“burnu havada” yazısında “burnu” sözcüğü yukarı kalkıp eğiliyor',
-  tarif: {
-    firca: 'batma',
-    vurgu: 0,
-    ayarlar: { yon: -1, mesafe: 0.9, kademe: 0.08, hedef: 0, sonKalan: null, egim: -0.14, zemin: false, hizEgrisi: 'yumusak' },
-    zamanlama: { giris: 1400, bekleme: 1400, cikis: 1000, dinlenme: 600 },
-    durgun: 1
-  }
-};
 
 /* ------------------------------------------------------------------
    Yardımcılar
@@ -680,7 +650,6 @@ function renderEntry(r, parent) {
 const stages = [];
 const list = document.getElementById('sozluk');
 for (const r of SOZLUK) stages.push([renderEntry(r, list), r]);
-stages.push([renderEntry(MOTOR_ORNEK, document.getElementById('motor-ornek')), MOTOR_ORNEK]);
 stages.forEach(([el, r]) => mount(el, r));
 
 // Font yüklenince harf ölçülerini yeniden hesapla
