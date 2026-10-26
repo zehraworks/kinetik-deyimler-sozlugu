@@ -117,24 +117,7 @@ button {
   cursor: pointer;
 }
 button:hover { background: var(--ink); color: var(--paper); }
-button:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-details { margin-top: 1rem; }
-summary {
-  font-family: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
-  font-size: 0.9rem;
-  color: var(--muted);
-  cursor: pointer;
-}
-pre {
-  margin: 0.5rem 0 0;
-  padding: 0.75rem 0.9rem;
-  background: var(--stage);
-  border: 1px solid var(--rule);
-  border-radius: 6px;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  overflow-x: auto;
-}
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 footer {
   border-top: 1px solid var(--rule);
   padding-top: 1.25rem;
@@ -172,6 +155,7 @@ const SOZLUK = [
     id: 'agzi',
     deyim: 'ağzı kulaklarına varmak',
     anlam: 'Çok sevinmek; sevinci yüzünden okunmak.',
+    ornek: 'Sınavı kazandığını duyunca ağzı kulaklarına vardı.',
     kategori: 'Beden',
     hareket: 'Satır bir gülümseme eğrisine oturur, kelimeler kulaklara doğru açılır.',
     aria: '“ağzı kulaklarına varmak” yazısı gülümser gibi kıvrılıp iki yana açılıyor',
@@ -187,6 +171,7 @@ const SOZLUK = [
     id: 'dibine',
     deyim: 'yerin dibine girmek',
     anlam: 'Çok utanmak; görünmez olmak istemek.',
+    ornek: 'Herkesin önünde adını yanlış söyleyince yerin dibine girdim.',
     kategori: 'Yön (aşağı)',
     hareket: 'Harfler sırayla zeminin altına batar; en son “dibine” kaybolur.',
     aria: '“yerin dibine girmek” yazısının harfleri tek tek zeminin altına batıyor',
@@ -202,6 +187,7 @@ const SOZLUK = [
     id: 'akli',
     deyim: 'aklı başından gitmek',
     anlam: 'Çok şaşırmak; heyecandan ya da korkudan ne yapacağını bilememek.',
+    ornek: 'Kapı birden çarpınca aklı başından gitti.',
     kategori: 'Dağılma ve düzen',
     hareket: '“aklı” sözcüğü parçalara ayrılıp savrulur, sonra yerine toplanır.',
     aria: '“aklı başından gitmek” yazısında “aklı” sözcüğü parçalara ayrılıp savruluyor',
@@ -217,6 +203,7 @@ const SOZLUK = [
     id: 'ici',
     deyim: 'içi içine sığmamak',
     anlam: 'Sevinç, heyecan ya da sabırsızlıktan yerinde duramamak.',
+    ornek: 'Tatile bir gün kala çocukların içi içine sığmıyordu.',
     kategori: 'Kap (iç/dış)',
     hareket: 'Sözcükler çerçevenin içinde büyür, duvarlara sıkışır, sonunda çerçeveyi zorlayıp taşar.',
     aria: '“içi içine sığmamak” yazısı bir çerçevenin içinde büyüyüp sıkışıyor ve çerçeveden taşıyor',
@@ -232,6 +219,7 @@ const SOZLUK = [
     id: 'goz',
     deyim: 'göz açıp kapayıncaya kadar',
     anlam: 'Çok kısa bir sürede, bir anda.',
+    ornek: 'Yaz tatili göz açıp kapayıncaya kadar geçti.',
     kategori: 'Hız ve zaman',
     hareket: '“ö” harfinin noktaları göz olur. Göz kırpıldığı anda deyimin geri kalanı birden belirir. Türkçe harf: noktalar harften ayrı hareket eder.',
     aria: '“göz açıp kapayıncaya kadar” yazısında ö harfinin noktaları göz gibi kırpılıyor, kırpma anında deyimin geri kalanı beliriyor',
@@ -632,16 +620,15 @@ function renderEntry(r, parent) {
       <dl>
         <dt>Anlamı</dt><dd data-f="anlam"></dd>
         <dt>Mecaz türü</dt><dd data-f="kategori"></dd>
+        <dt>Örnek cümle</dt><dd data-f="ornek"></dd>
         <dt>Hareket</dt><dd data-f="hareket"></dd>
       </dl>
       <button type="button">Baştan oynat</button>
-      <details><summary>Tarif (veri)</summary><pre><code></code></pre></details>
     </div>`;
   const stage = art.querySelector('.stage');
   stage.setAttribute('aria-label', r.aria);
   art.querySelector('h2').textContent = r.deyim;
   for (const dd of art.querySelectorAll('dd')) dd.textContent = r[dd.dataset.f];
-  art.querySelector('code').textContent = JSON.stringify(r.tarif, null, 2);
   art.querySelector('button').addEventListener('click', () => stage._replay && stage._replay());
   parent.appendChild(art);
   return stage;

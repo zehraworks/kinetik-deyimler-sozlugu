@@ -16,6 +16,8 @@ Türkçe deyimlerin mecaz anlamını harflerin hareketiyle anlatan, web tabanlı
 
 ## Motor nasıl çalışıyor?
 
+Sitede her madde deyimin anlamını, bir örnek cümleyi, mecaz türünü ve hareketin yazılı açıklamasını gösteriyor. Aşağısı kodun nasıl düzenlendiğini anlatıyor.
+
 Deyimler tek tek kodlanmıyor. Motorun birkaç hareket türü ("fırça") var. Her deyim, bu fırçalardan birini hangi ayarlarla kullanacağını söyleyen kısa bir veri tarifinden ibaret:
 
 ```js
